@@ -20,10 +20,10 @@ To get started with the project, follow these steps:
 
 1. Clone the repository:
 
-git clone https://github.com/your-username/your-repository.git
+git clone (https://github.com/UrfanAlvany/e-commerce.git)
 
 
 2. Install dependencies:
 
-cd your-repository
+cd e-commerce
 npm install
