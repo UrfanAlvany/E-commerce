@@ -30,7 +30,7 @@ export const Button: React.FC<Props> = ({
   type = 'button',
   disabled,
   invert,
-  children
+  children,
 }) => {
   let el = elFromProps
 

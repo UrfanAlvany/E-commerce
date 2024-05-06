@@ -6,9 +6,9 @@ import classes from './index.module.scss'
 const Promotion = () => {
   const [time, setTime] = useState({
     days: 0,
-    hours : 0,
+    hours: 0,
     minutes: 0,
-    seconds : 0,
+    seconds: 0,
   })
   const targetDate = new Date()
   targetDate.setDate(targetDate.getDate() + 7)

@@ -20,9 +20,9 @@ const priceFromJSON = (priceJSON): string => {
       price = `${parsed.currency === 'usd' ? '$' : ''}${(priceValue / 100).toFixed(2)}`
       if (priceType === 'recurring') {
         price += `/${
-            parsed.recurring.interval_count > 1
-                ? `${parsed.recurring.interval_count} ${parsed.recurring.interval}`
-                : parsed.recurring.interval
+          parsed.recurring.interval_count > 1
+            ? `${parsed.recurring.interval_count} ${parsed.recurring.interval}`
+            : parsed.recurring.interval
         }`
       }
     } catch (e) {
@@ -67,23 +67,23 @@ export const Card: React.FC<{
   }, [priceJSON])
 
   return (
-      <Link href={href} className={[classes.card, className].filter(Boolean).join(' ')}>
-        <div className={classes.mediaWrapper}>
-          {!metaImage && <div className={classes.placeholder}>No image</div>}
-          {metaImage && typeof metaImage !== 'string' && (
-              <Media imgClassName={classes.image} resource={metaImage} fill />
-          )}
-        </div>
+    <Link href={href} className={[classes.card, className].filter(Boolean).join(' ')}>
+      <div className={classes.mediaWrapper}>
+        {!metaImage && <div className={classes.placeholder}>No image</div>}
+        {metaImage && typeof metaImage !== 'string' && (
+          <Media imgClassName={classes.image} resource={metaImage} fill />
+        )}
+      </div>
 
-        <div className={classes.content}>
-          {titleToUse && <h4 className={classes.title}>{titleToUse}</h4>}
-          {description && (
-              <div className={classes.body}>
-                {description && <p className={classes.description}>{sanitizedDescription}</p>}
-              </div>
-          )}
-          {doc && <Price product={doc} />}
-        </div>
-      </Link>
+      <div className={classes.content}>
+        {titleToUse && <h4 className={classes.title}>{titleToUse}</h4>}
+        {description && (
+          <div className={classes.body}>
+            {description && <p className={classes.description}>{sanitizedDescription}</p>}
+          </div>
+        )}
+        {doc && <Price product={doc} />}
+      </div>
+    </Link>
   )
 }

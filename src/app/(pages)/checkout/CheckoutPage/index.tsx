@@ -50,11 +50,11 @@ export const CheckoutPage: React.FC<{
       const makeIntent = async () => {
         try {
           const paymentReq = await fetch(
-              `${process.env.NEXT_PUBLIC_SERVER_URL}/api/create-payment-intent`,
-              {
-                method: 'POST',
-                credentials: 'include',
-              },
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/create-payment-intent`,
+            {
+              method: 'POST',
+              credentials: 'include',
+            },
           )
 
           const res = await paymentReq.json()
@@ -77,109 +77,109 @@ export const CheckoutPage: React.FC<{
   if (!user || !stripe) return null
 
   return (
-      <Fragment>
-        {cartIsEmpty && (
-            <div>
-              {'Your '}
-              <Link href="/cart">cart</Link>
-              {' is empty.'}
-              {typeof productsPage === 'object' && productsPage?.slug && (
-                  <Fragment>
-                    {' '}
-                    <Link href={`/${productsPage.slug}`}>Continue shopping?</Link>
-                  </Fragment>
-              )}
-            </div>
-        )}
-        {!cartIsEmpty && (
-            <div className={classes.items}>
-              <div className={classes.header}>
-                <p>Products</p>
-                <div className={classes.headerItemDetails}>
-                  <p></p>
-                  <p className={classes.quantity}>Quantity</p>
-                </div>
-                <p className={classes.subtotal}>Subtotal</p>
-              </div>
-
-              <ul>
-                {cart?.items?.map((item, index) => {
-                  if (typeof item.product === 'object') {
-                    const {
-                      quantity,
-                      product,
-                      product: { title, meta },
-                    } = item
-
-                    if (!quantity) return null
-
-                    const metaImage = meta?.image
-
-                    return (
-                        <Fragment key={index}>
-                          <CheckoutItem
-                              product={product}
-                              title={title}
-                              metaImage={metaImage}
-                              quantity={quantity}
-                              index={index}
-                          />
-                        </Fragment>
-                    )
-                  }
-                  return null
-                })}
-                <div className={classes.orderTotal}>
-                  <p>Order Total</p>
-                  <p>{cartTotal.formatted}</p>
-                </div>
-              </ul>
-            </div>
-        )}
-        {!clientSecret && !error && (
-            <div className={classes.loading}>
-              <LoadingShimmer number={2} />
-            </div>
-        )}
-        {!clientSecret && error && (
-            <div className={classes.error}>
-              <p>{`Error: ${error}`}</p>
-              <Button label="Back to cart" href="/cart" appearance="secondary" />
-            </div>
-        )}
-        {clientSecret && (
+    <Fragment>
+      {cartIsEmpty && (
+        <div>
+          {'Your '}
+          <Link href="/cart">cart</Link>
+          {' is empty.'}
+          {typeof productsPage === 'object' && productsPage?.slug && (
             <Fragment>
-              <h3 className={classes.payment}>Payment Details</h3>
-              {error && <p>{`Error: ${error}`}</p>}
-              <Elements
-                  stripe={stripe}
-                  options={{
-                    clientSecret,
-                    appearance: {
-                      theme: 'stripe',
-                      variables: {
-                        colorText:
-                            theme === 'dark' ? cssVariables.colors.base0 : cssVariables.colors.base1000,
-                        fontSizeBase: '16px',
-                        fontWeightNormal: '500',
-                        fontWeightBold: '600',
-                        colorBackground:
-                            theme === 'dark' ? cssVariables.colors.base850 : cssVariables.colors.base0,
-                        fontFamily: 'Inter, sans-serif',
-                        colorTextPlaceholder: cssVariables.colors.base500,
-                        colorIcon:
-                            theme === 'dark' ? cssVariables.colors.base0 : cssVariables.colors.base1000,
-                        borderRadius: '0px',
-                        colorDanger: cssVariables.colors.error500,
-                        colorDangerText: cssVariables.colors.error500,
-                      },
-                    },
-                  }}
-              >
-                <CheckoutForm />
-              </Elements>
+              {' '}
+              <Link href={`/${productsPage.slug}`}>Continue shopping?</Link>
             </Fragment>
-        )}
-      </Fragment>
+          )}
+        </div>
+      )}
+      {!cartIsEmpty && (
+        <div className={classes.items}>
+          <div className={classes.header}>
+            <p>Products</p>
+            <div className={classes.headerItemDetails}>
+              <p></p>
+              <p className={classes.quantity}>Quantity</p>
+            </div>
+            <p className={classes.subtotal}>Subtotal</p>
+          </div>
+
+          <ul>
+            {cart?.items?.map((item, index) => {
+              if (typeof item.product === 'object') {
+                const {
+                  quantity,
+                  product,
+                  product: { title, meta },
+                } = item
+
+                if (!quantity) return null
+
+                const metaImage = meta?.image
+
+                return (
+                  <Fragment key={index}>
+                    <CheckoutItem
+                      product={product}
+                      title={title}
+                      metaImage={metaImage}
+                      quantity={quantity}
+                      index={index}
+                    />
+                  </Fragment>
+                )
+              }
+              return null
+            })}
+            <div className={classes.orderTotal}>
+              <p>Order Total</p>
+              <p>{cartTotal.formatted}</p>
+            </div>
+          </ul>
+        </div>
+      )}
+      {!clientSecret && !error && (
+        <div className={classes.loading}>
+          <LoadingShimmer number={2} />
+        </div>
+      )}
+      {!clientSecret && error && (
+        <div className={classes.error}>
+          <p>{`Error: ${error}`}</p>
+          <Button label="Back to cart" href="/cart" appearance="secondary" />
+        </div>
+      )}
+      {clientSecret && (
+        <Fragment>
+          <h3 className={classes.payment}>Payment Details</h3>
+          {error && <p>{`Error: ${error}`}</p>}
+          <Elements
+            stripe={stripe}
+            options={{
+              clientSecret,
+              appearance: {
+                theme: 'stripe',
+                variables: {
+                  colorText:
+                    theme === 'dark' ? cssVariables.colors.base0 : cssVariables.colors.base1000,
+                  fontSizeBase: '16px',
+                  fontWeightNormal: '500',
+                  fontWeightBold: '600',
+                  colorBackground:
+                    theme === 'dark' ? cssVariables.colors.base850 : cssVariables.colors.base0,
+                  fontFamily: 'Inter, sans-serif',
+                  colorTextPlaceholder: cssVariables.colors.base500,
+                  colorIcon:
+                    theme === 'dark' ? cssVariables.colors.base0 : cssVariables.colors.base1000,
+                  borderRadius: '0px',
+                  colorDanger: cssVariables.colors.error500,
+                  colorDangerText: cssVariables.colors.error500,
+                },
+              },
+            }}
+          >
+            <CheckoutForm />
+          </Elements>
+        </Fragment>
+      )}
+    </Fragment>
   )
 }

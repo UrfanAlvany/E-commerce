@@ -39,8 +39,6 @@ dotenv.config({
   path: path.resolve(__dirname, '../../../.env'),
 })
 
-
-
 export default buildConfig({
   admin: {
     user: Users.slug,

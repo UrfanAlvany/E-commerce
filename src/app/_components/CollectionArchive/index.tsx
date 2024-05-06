@@ -36,7 +36,7 @@ export type Props = {
 }
 
 export const CollectionArchive: React.FC<Props> = props => {
-  const { categoryFilters, sort } = useFilter();
+  const { categoryFilters, sort } = useFilter()
 
   const {
     className,
@@ -96,13 +96,13 @@ export const CollectionArchive: React.FC<Props> = props => {
         where: {
           ...(categoryFilters && categoryFilters?.length > 0
             ? {
-              categories: {
-                in:
-                  typeof categoryFilters === 'string'
-                    ? [categoryFilters]
-                    : categoryFilters.map((cat: string) => cat).join(','),
-              },
-            }
+                categories: {
+                  in:
+                    typeof categoryFilters === 'string'
+                      ? [categoryFilters]
+                      : categoryFilters.map((cat: string) => cat).join(','),
+                },
+              }
             : {}),
         },
         limit,

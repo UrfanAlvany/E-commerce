@@ -15,7 +15,7 @@ import classes from './index.module.scss'
 export default async function Checkout() {
   await getMeUser({
     nullUserRedirect: `/login?error=${encodeURIComponent(
-        'You must be logged in to checkout.',
+      'You must be logged in to checkout.',
     )}&redirect=${encodeURIComponent('/checkout')}`,
   })
 
@@ -29,11 +29,11 @@ export default async function Checkout() {
   }
 
   return (
-      <div className={classes.checkout}>
-        <Gutter>
-          <CheckoutPage settings={settings} />
-        </Gutter>
-      </div>
+    <div className={classes.checkout}>
+      <Gutter>
+        <CheckoutPage settings={settings} />
+      </Gutter>
+    </div>
   )
 }
 

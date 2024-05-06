@@ -1,4 +1,3 @@
-
 export const inclusions = [
   {
     title: 'Flexibility',
