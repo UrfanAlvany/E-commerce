@@ -20,9 +20,9 @@ const priceFromJSON = (priceJSON): string => {
       price = `${parsed.currency === 'usd' ? '$' : ''}${(priceValue / 100).toFixed(2)}`
       if (priceType === 'recurring') {
         price += `/${
-          parsed.recurring.interval_count > 1
-            ? `${parsed.recurring.interval_count} ${parsed.recurring.interval}`
-            : parsed.recurring.interval
+            parsed.recurring.interval_count > 1
+                ? `${parsed.recurring.interval_count} ${parsed.recurring.interval}`
+                : parsed.recurring.interval
         }`
       }
     } catch (e) {
@@ -67,54 +67,23 @@ export const Card: React.FC<{
   }, [priceJSON])
 
   return (
-    <div className={[classes.card, className].filter(Boolean).join(' ')}>
-      <Link href={href} className={classes.mediaWrapper}>
-        {!metaImage && <div className={classes.placeholder}>No image</div>}
-        {metaImage && typeof metaImage !== 'string' && (
-          <Media imgClassName={classes.image} resource={metaImage} fill />
-        )}
-      </Link>
-      <div className={classes.content}>
-        {showCategories && hasCategories && (
-          <div className={classes.leader}>
-            {showCategories && hasCategories && (
-              <div>
-                {categories?.map((category, index) => {
-                  if (typeof category === 'object' && category !== null) {
-                    const { title: titleFromCategory } = category
+      <Link href={href} className={[classes.card, className].filter(Boolean).join(' ')}>
+        <div className={classes.mediaWrapper}>
+          {!metaImage && <div className={classes.placeholder}>No image</div>}
+          {metaImage && typeof metaImage !== 'string' && (
+              <Media imgClassName={classes.image} resource={metaImage} fill />
+          )}
+        </div>
 
-                    const categoryTitle = titleFromCategory || 'Untitled category'
-
-                    const isLast = index === categories.length - 1
-
-                    return (
-                      <Fragment key={index}>
-                        {categoryTitle}
-                        {!isLast && <Fragment>, &nbsp;</Fragment>}
-                      </Fragment>
-                    )
-                  }
-
-                  return null
-                })}
+        <div className={classes.content}>
+          {titleToUse && <h4 className={classes.title}>{titleToUse}</h4>}
+          {description && (
+              <div className={classes.body}>
+                {description && <p className={classes.description}>{sanitizedDescription}</p>}
               </div>
-            )}
-          </div>
-        )}
-        {titleToUse && (
-          <h4 className={classes.title}>
-            <Link href={href} className={classes.titleLink}>
-              {titleToUse}
-            </Link>
-          </h4>
-        )}
-        {description && (
-          <div className={classes.body}>
-            {description && <p className={classes.description}>{sanitizedDescription}</p>}
-          </div>
-        )}
-        {doc && <Price product={doc} />}
-      </div>
-    </div>
+          )}
+          {doc && <Price product={doc} />}
+        </div>
+      </Link>
   )
 }

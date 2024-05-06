@@ -34,55 +34,34 @@ export default async function Product({ params: { slug } }) {
     notFound()
   }
 
-  const { layout, relatedProducts } = product
+  const { relatedProducts } = product
 
   return (
-    <React.Fragment>
-      <ProductHero product={product} />
-      <Blocks blocks={layout} />
-      {product?.enablePaywall && <PaywallBlocks productSlug={slug as string} disableTopPadding />}
-      <Blocks
-        disableTopPadding
-        blocks={[
-          {
-            blockType: 'relatedProducts',
-            blockName: 'Related Product',
-            relationTo: 'products',
-            introContent: [
+      <>
+        <ProductHero product={product} />
+        {product?.enablePaywall && <PaywallBlocks productSlug={slug as string} disableTopPadding />}
+        <Blocks
+            disableTopPadding
+            blocks={[
               {
-                type: 'h4',
-                children: [
+                blockType: 'relatedProducts',
+                blockName: 'Related Product',
+                relationTo: 'products',
+                introContent: [
                   {
-                    text: 'Related Products',
-                  },
-                ],
-              },
-              {
-                type: 'p',
-                children: [
-                  {
-                    text: 'The products displayed here are individually selected for this page. Admins can select any number of related products to display here and the layout will adjust accordingly. Alternatively, you could swap this out for the "Archive" block to automatically populate products by category complete with pagination. To manage related posts, ',
-                  },
-                  {
-                    type: 'link',
-                    url: `/admin/collections/products/${product.id}`,
+                    type: 'h3',
                     children: [
                       {
-                        text: 'navigate to the admin dashboard',
+                        text: 'Related Products',
                       },
                     ],
                   },
-                  {
-                    text: '.',
-                  },
                 ],
+                docs: relatedProducts,
               },
-            ],
-            docs: relatedProducts,
-          },
-        ]}
-      />
-    </React.Fragment>
+            ]}
+        />
+      </>
   )
 }
 
